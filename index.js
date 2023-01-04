@@ -10,21 +10,19 @@ window.addEventListener('load', (e) => {
     console.log(`title: `, title);
 
     if(title){
-      console.log(`We have a title`);
       const titleDiv = document.querySelector('#titleText');
       titleDiv.append(title);
     } else {
-      console.log('no title');
+      console.log('No title sent');
     }
 
     JsBarcode('#barcode', upc, {
       format: 'UPC',
       width: 3,
       margin: 24,
-      // font: "fantasy"
     });
   } catch (error) {
-    console.log(error);
+    // console.log(error);
     const messageDiv = document.querySelector('#message');
     messageDiv.classList.add('error')
     messageDiv.append(`Error: ${error}`);
