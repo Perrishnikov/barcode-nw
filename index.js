@@ -9,6 +9,14 @@ window.addEventListener('load', (e) => {
     const title = parsedUrl.searchParams.get('title');
     console.log(`title: `, title);
 
+    if(title){
+      console.log(`We have a title`);
+      const titleDiv = document.querySelector('#titleText');
+      titleDiv.append(title);
+    } else {
+      console.log('no title');
+    }
+
     JsBarcode('#barcode', upc, {
       format: 'UPC',
       width: 3,
@@ -16,7 +24,7 @@ window.addEventListener('load', (e) => {
       // font: "fantasy"
     });
   } catch (error) {
-    // console.log(error);
+    console.log(error);
     const messageDiv = document.querySelector('#message');
     messageDiv.classList.add('error')
     messageDiv.append(`Error: ${error}`);

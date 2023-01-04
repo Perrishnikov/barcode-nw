@@ -1,9 +1,29 @@
 #body {
-  margin: 5;
+  margin: 0;
+  padding: 0;
 }
 
-#message {
-  /*  */
+.titleDiv {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: center;
+  padding: 12px;
+  padding-left: 24;
+  margin: 12px;
+  margin-bottom: 0;
+  font-size: 2em;
+  font-family: Poppins, sans-serif;
+}
+.border {
+  border-bottom: 0.1em solid;
+}
+#info {
+  padding: 12px;
+  padding-top: 0;
+  margin-left: 24px;
+  font-size: 1em;
+  font-family: Poppins, sans-serif;
 }
 
 .error {
@@ -15,5 +35,5 @@
   font-size: 2em;
   color: #ba3939;
   background: #ffe0e0;
-  /* border: 1px solid #a33a3a; */
+  border: 1px solid #a33a3a;
 }
