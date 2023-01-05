@@ -4,3 +4,5 @@ https://perrishnikov.github.io/barcode-nw/?upc=020065100026&title=NatureWorks%20
 barcode generator:
 https://github.com/lindell/JsBarcode/wiki/Options#height
 
+homepage:
+https://github.com/Perrishnikov/barcode-nw
