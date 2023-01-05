@@ -2,7 +2,20 @@
   margin: 0;
   padding: 0;
 }
-
+#downloadButton{
+  padding: 12px;
+  font-family: Poppins, sans-serif;
+  font-size: 1.2em;
+  /* background-color: rgb(167, 189, 142); */
+  border-radius: 12px;
+}
+.flexDiv {
+  display: flex;
+  padding: 12px;
+  padding-left: 24px;
+  margin: 12px;
+  margin-bottom: 0;
+}
 .titleDiv {
   display: flex;
   flex-direction: row;
@@ -25,7 +38,6 @@
   font-size: 1em;
   font-family: Poppins, sans-serif;
 }
-
 .error {
   padding: 10px;
   margin: 10px;
