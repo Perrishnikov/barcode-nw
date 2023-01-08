@@ -9,20 +9,55 @@
     <link rel="stylesheet" href="style.css" />
   </head>
   <body>
-    <div class="titleDiv">
-      <div id="titleText"></div>
-      <img id="titleImg" src="./nw_logo.avif" />
-    </div>
-    
-    <div class="border"></div>
-
-    <canvas id="barcode"></canvas>
-    <div class="border"></div>
     <div class="flexDiv">
-      <button id="downloadButton">Download Barcode</button>
+      <div class="t1">NW Barcode Generator</div>
+      <div class="imageDiv">
+        <img id="titleImg" src="./nw_logo.avif" />
+      </div>
     </div>
-    
-    <div id="message"></div>
+    <hr />
+    <!-- Message -->
+    <div class="flexDiv">
+      <div id="message">Message</div>
+    </div>
+    <!-- Single -->
+    <div
+      id="singleDiv"
+      class="flexColumn hidden"
+      style="background-color: aliceblue"
+    >
+      <div id="titleText" class="t2 spaceVertical">Product Title</div>
+      <div>
+        <canvas id="barcode"></canvas>
+      </div>
+
+      <div class="spaceVertical">
+        <button id="singleDownloadButton">Download Barcode</button>
+      </div>
+      <hr />
+    </div>
+
+    <!-- Bulk -->
+    <div id="bulkDiv" class="flexColumn">
+      <div>
+        <label for="partcodes" class="t3">Name (4 to 8 characters):</label>
+
+        <input
+          type="text"
+          id="partcodes"
+          name="partcodes"
+          required
+          minlength="4"
+          maxlength="8"
+          size="10"
+        />
+      </div>
+    </div>
+
+    <!-- <div class="flexDiv">
+      
+    </div> -->
+
     <script src="JsBarcode.all.min.js"></script>
     <script src="index.js"></script>
   </body>

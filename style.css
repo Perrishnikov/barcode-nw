@@ -1,43 +1,67 @@
-#body {
+body {
   margin: 0;
   padding: 0;
-}
-#downloadButton{
-  padding: 12px;
   font-family: Poppins, sans-serif;
+  font-size: 1em;
+}
+.t1 {
+  font-size: 2em;
+}
+.t2 {
+  font-size: 1.5em;
+}
+.t3{
+  font-size: 1.2em;
+}
+#singleDownloadButton {
+  padding: 12px;
   font-size: 1.2em;
   /* background-color: rgb(167, 189, 142); */
   border-radius: 12px;
 }
 .flexDiv {
-  display: flex;
-  padding: 12px;
+  padding-top: 12px;
+  padding-bottom: 12px;
+  padding-right: 24px;
   padding-left: 24px;
-  margin: 12px;
-  margin-bottom: 0;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+.flexColumn {
+  padding-top: 12px;
+  padding-bottom: 12px;
+  padding-right: 24px;
+  padding-left: 24px;
+  display: flex;
+  flex-grow: 1;
+  width: 100vw;
+  flex-direction: column;
+  align-items: center;
+}
+.spaceVertical {
+  padding-top: 12px;
+  padding-bottom: 12px;
 }
 .titleDiv {
-  display: flex;
+  /* display: flex;
   flex-direction: row;
   justify-content: space-between;
   align-items: center;
   padding: 12px;
-  padding-left: 24;
+  padding-left: 24px;
   margin: 12px;
   margin-bottom: 0;
-  font-size: 2em;
-  font-family: Poppins, sans-serif;
+  font-size: 2em; */
 }
-.border {
-  border-bottom: 0.1em solid;
+hr {
+  width: 100%;
 }
-#info {
+/* #info {
   padding: 12px;
   padding-top: 0;
   margin-left: 24px;
-  font-size: 1em;
-  font-family: Poppins, sans-serif;
-}
+} */
 .error {
   padding: 10px;
   margin: 10px;
@@ -48,4 +72,16 @@
   color: #ba3939;
   background: #ffe0e0;
   border: 1px solid #a33a3a;
+}
+
+#titleImg {
+  max-width: 100%;
+  height: auto;
+}
+.imageDiv {
+  width: 70px;
+  height: auto;
+}
+.hidden {
+  display: none;
 }

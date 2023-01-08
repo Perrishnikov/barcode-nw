@@ -26,29 +26,32 @@ window.addEventListener('load', (e) => {
     const upc = parsedUrl.searchParams.get('upc');
     console.log(`upc: `, upc);
 
-    const title = parsedUrl.searchParams.get('title');
-    console.log(`title: `, title);
+    if (upc) {
+      const singleDiv = document.querySelector('#singleDiv');
+      singleDiv.classList.remove('hidden');
 
-    if (title) {
-      const titleDiv = document.querySelector('#titleText');
-      titleDiv.append(title);
-    } else {
-      console.log('No title sent');
+      const title = parsedUrl.searchParams.get('title');
+      console.log(`title: `, title);
+
+      if (title) {
+        const titleDiv = document.querySelector('#titleText');
+        titleDiv.append(title);
+      }
+
+      JsBarcode('#barcode', upc, {
+        format: 'UPC',
+        width: 3,
+        margin: 24,
+      });
+
+      const canvas = document.querySelector('#barcode');
+      const dataURL = canvas.toDataURL();
+      // console.log(dataURL);
+
+      document.querySelector('#singleDownloadButton').onclick = (e) => {
+        downloadFile(dataURL, upc);
+      };
     }
-
-    JsBarcode('#barcode', upc, {
-      format: 'UPC',
-      width: 3,
-      margin: 24,
-    });
-
-    const canvas = document.querySelector('#barcode');
-    const dataURL = canvas.toDataURL();
-    // console.log(dataURL);
-
-    document.querySelector('button').onclick = (e) => {
-      downloadFile(dataURL, upc);
-    };
   } catch (error) {
     // console.log(error);
     const messageDiv = document.querySelector('#message');
