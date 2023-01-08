@@ -2,7 +2,19 @@ body {
   margin: 0;
   padding: 0;
   font-family: Poppins, sans-serif;
-  font-size: 1em;
+  font-size: 1.2em;
+}
+button {
+  font-family: Poppins, sans-serif;
+  padding: 12px;
+  font-size: 1.2em;
+  margin-left: 12px;
+  margin-right: 12px;
+  border-radius: 6px;
+  border-width: 1px;
+}
+.go{
+  background-color:darkseagreen
 }
 .t1 {
   font-size: 2em;
@@ -25,6 +37,7 @@ body {
   padding-right: 24px;
   padding-left: 24px;
   display: flex;
+  flex: 1;
   justify-content: space-between;
   align-items: center;
 }
@@ -43,38 +56,30 @@ body {
   padding-top: 12px;
   padding-bottom: 12px;
 }
-.titleDiv {
-  /* display: flex;
-  flex-direction: row;
-  justify-content: space-between;
-  align-items: center;
-  padding: 12px;
-  padding-left: 24px;
-  margin: 12px;
-  margin-bottom: 0;
-  font-size: 2em; */
-}
+
 hr {
   width: 100%;
 }
 .text{
   padding: 12px;
 }
-/* #info {
-  padding: 12px;
-  padding-top: 0;
-  margin-left: 24px;
-} */
 .error {
   padding: 12px;
-  color: #333;
-  background: #fafafa;
   font: bold;
   color: #ba3939;
   background: #ffe0e0;
   border: 1px solid #a33a3a;
+  margin-right: 12px;
+  border-radius: 9px;
 }
-
+.errorDiv {
+  padding-top: 12px;
+  padding-bottom: 12px;
+  padding-right: 24px;
+  padding-left: 24px;
+  display: flex;
+  align-items: center;
+}
 #titleImg {
   max-width: 100%;
   height: auto;
@@ -85,4 +90,8 @@ hr {
 }
 .hidden {
   display: none;
+}
+textarea {
+  margin-top: 12px;
+  margin-bottom: 12px;
 }

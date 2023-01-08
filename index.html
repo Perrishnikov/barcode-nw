@@ -17,14 +17,13 @@
     </div>
     <hr />
     <!-- Message -->
-    <div class="flexDiv">
-      <div id="message">Message</div>
+    <div id="messageDiv" class="errorDiv">
+      <!-- <div >Message</div> -->
     </div>
     <!-- Single -->
     <div
       id="singleDiv"
       class="flexColumn hidden"
-      style="background-color: aliceblue"
     >
       <div id="titleText" class="t2 spaceVertical">Product Title</div>
       <div>
@@ -32,26 +31,34 @@
       </div>
 
       <div class="spaceVertical">
-        <button id="singleDownloadButton">Download Barcode</button>
+        <button id="singleDownloadButton" disabled="true">Download Single Barcode</button>
       </div>
       <hr />
+      <div>OR</div>
+      <hr/>
+
     </div>
 
     <!-- Bulk -->
     <div id="bulkDiv" class="flexColumn">
       <div class="flexColumn">
-        <div class="t3 text">Enter UPC's delimited by comma, space, carriage return, or from Excel</div>
+        <div class="t3 spaceVertical">
+          Enter UPC's delimited by comma, space, return, or from Excel.
+        </div>
 
-        <textarea name="partcodeEntry" cols="64" rows="6"></textarea>
-        <button id="generateButton">Generate Barcodes</button>
+        <textarea id="partcodeEntry" cols="64" rows="6"></textarea>
+        <div class="flexDiv">
+          <button id="generateButton">Generate Barcodes</button>
+          <button disabled="true" id="zipDownloadButton">Download Zip File</button>
+          <button id="clearButton">Clear</button>
+        </div>
 
         <div>
-          <button disabled="true" id="zipDownloadButton">Download Zip</button>
+          
         </div>
       </div>
       <div id="resultsDiv"></div>
     </div>
-
 
     <script src="./packages/JsBarcode.all.min.js"></script>
     <script src="./packages/FileSaver.min.js"></script>

@@ -24,39 +24,52 @@ window.addEventListener('load', (e) => {
     // console.log(`parsedUrl: ${parsedUrl}`);
 
     const upc = parsedUrl.searchParams.get('upc');
-    console.log(`upc: `, upc);
+    console.log(`single upc: `, upc);
 
     if (upc) {
       const singleDiv = document.querySelector('#singleDiv');
       singleDiv.classList.remove('hidden');
 
       const title = parsedUrl.searchParams.get('title');
-      console.log(`title: `, title);
+      console.log(`single title: `, title);
+
+      const titleDiv = document.querySelector('#titleText');
 
       if (title) {
-        const titleDiv = document.querySelector('#titleText');
         titleDiv.append(title);
+      } else {
+        titleDiv.textContent = '';
       }
+      try {
+        JsBarcode('#barcode', upc, {
+          format: 'UPC',
+          width: 3,
+          margin: 24,
+        });
 
-      JsBarcode('#barcode', upc, {
-        format: 'UPC',
-        width: 3,
-        margin: 24,
-      });
+        const canvas = document.querySelector('#barcode');
+        const dataURL = canvas.toDataURL();
+        // console.log(dataURL);
+        const singleDownloadButton = document.querySelector('#singleDownloadButton');
 
-      const canvas = document.querySelector('#barcode');
-      const dataURL = canvas.toDataURL();
-      // console.log(dataURL);
-
-      document.querySelector('#singleDownloadButton').onclick = (e) => {
-        downloadFile(dataURL, upc);
-      };
+        singleDownloadButton.disabled = false;
+        singleDownloadButton.onclick = (e) => {
+          downloadFile(dataURL, upc);
+        };
+        singleDownloadButton.classList.add('go')
+      } catch (error) {
+        // console.log(error);
+        const errorDiv = document.createElement('div');
+        errorDiv.textContent = `Bad UPC: "${upc}"`;
+        errorDiv.classList.add('error');
+        messageDiv.appendChild(errorDiv);
+      }
     }
   } catch (error) {
     // console.log(error);
-    const messageDiv = document.querySelector('#message');
-    messageDiv.classList.add('error');
-    messageDiv.append(`Error: ${error}`);
+    const errorDiv = document.querySelector('#message');
+    errorDiv.classList.add('error');
+    errorDiv.append(`Error: ${error}`);
   }
 });
 
@@ -70,6 +83,7 @@ async function getBlobForZip(url) {
   });
 }
 
+/* DOWNLOAD button */
 document.querySelector('#zipDownloadButton').onclick = async (e) => {
   const bulkBarcodes = document.querySelectorAll('.generated');
 
@@ -103,45 +117,90 @@ document.querySelector('#zipDownloadButton').onclick = async (e) => {
   });
 };
 
-const string = '020065100026; 033674001103; 033674003206; 666';
-const split = string.split(';');
-console.log(split);
+/* GENERATE button */
+document.querySelector('#generateButton').onclick = (e) => {
+  // const demo = '020065100026; 033674001103; 033674003206; 666. 033674003206, hello, ';
 
-const resultsDiv = document.querySelector('#resultsDiv');
+  const textPartcodes = document.querySelector('#partcodeEntry');
+  const string = textPartcodes.value;
 
-for (let index in split) {
-  // try {
-  let upc = split[index].trim();
-  // console.log(upc);
-
-  // create Canvas AFTER Barcode is attempted
-  const newDiv = document.createElement('div');
-  newDiv.id = `div-${upc}`
-  const canvas = document.createElement('canvas');
-  canvas.id = `upc-${upc}`;
-  canvas.classList.add('generated');
-
-  newDiv.appendChild(canvas);
-  resultsDiv.appendChild(newDiv);
-
-  try {
-    let result = JsBarcode(`#upc-${upc}`, upc, {
-      format: 'UPC',
-      width: 3,
-      margin: 24,
-    });
-  } catch (error) {
-    // skip the bad UPC's, log them, and continue
-    console.log(split[index], ` is bad`);
-    document.querySelector(`#div-${upc}`).remove()
-    const messageDiv = document.querySelector(`#message`);
-    messageDiv.textContent = `Bad UPC: ${upc}`
-    messageDiv.classList.add('error');
-
+  if (!string) {
+    return;
   }
 
-  // isOkay = true;
-  // } catch (error) {
+  const split = string.split(/;|,|\.|\r|\n/).map((item) => item.trim());
+  // console.log(split);
 
-  // }
-}
+  const resultsDiv = document.querySelector('#resultsDiv');
+
+  // hold all the bad UPC's
+  const errorUPCs = [];
+
+  for (const index in split) {
+    const upc = split[index].trim();
+    // console.log(upc);
+
+    const newDiv = document.createElement('div');
+    newDiv.id = `div-${upc}`;
+    const canvas = document.createElement('canvas');
+    canvas.id = `upc-${upc}`;
+    canvas.classList.add('generated');
+
+    newDiv.appendChild(canvas);
+    resultsDiv.appendChild(newDiv);
+
+    try {
+      JsBarcode(`#upc-${upc}`, upc, {
+        format: 'UPC',
+        width: 3,
+        margin: 24,
+      });
+    } catch (error) {
+      // console.log(error);
+      // removed bad Canvas AFTER Barcode is attempted
+      document.querySelector(`#div-${upc}`).remove();
+      errorUPCs.push(upc);
+    }
+  }
+
+  // enable Downlaod button
+  const downloadButton = document.querySelector('#zipDownloadButton');
+  downloadButton.classList.add('go');
+  downloadButton.disabled = false;
+
+  // disable Generate Button
+  const generateButton = document.querySelector('#generateButton');
+  generateButton.disabled = true;
+
+  // tally the errors, if any
+  if (errorUPCs) {
+    const messageDiv = document.querySelector(`#messageDiv`);
+
+    errorUPCs.forEach((upc) => {
+      const errorDiv = document.createElement('div');
+      errorDiv.textContent = `Bad UPC: "${upc}"`;
+      errorDiv.classList.add('error');
+      messageDiv.appendChild(errorDiv);
+    });
+  }
+};
+
+/* CLEAR button */
+document.querySelector('#clearButton').onclick = () => {
+  const text = document.querySelector('#partcodeEntry');
+  text.value = '';
+
+  const downloadButton = document.querySelector('#zipDownloadButton');
+  downloadButton.classList.remove('go');
+  downloadButton.disabled = true;
+
+  // disable Generate Button
+  const generateButton = document.querySelector('#generateButton');
+  generateButton.disabled = false;
+
+  const messageDiv = document.querySelector(`#messageDiv`);
+  messageDiv.innerHTML = '';
+
+  const resultsDiv = document.querySelector('#resultsDiv');
+  resultsDiv.innerHTML = '';
+};
