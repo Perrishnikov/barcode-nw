@@ -57,18 +57,19 @@ body {
 hr {
   width: 100%;
 }
+.text{
+  padding: 12px;
+}
 /* #info {
   padding: 12px;
   padding-top: 0;
   margin-left: 24px;
 } */
 .error {
-  padding: 10px;
-  margin: 10px;
+  padding: 12px;
   color: #333;
   background: #fafafa;
   font: bold;
-  font-size: 2em;
   color: #ba3939;
   background: #ffe0e0;
   border: 1px solid #a33a3a;

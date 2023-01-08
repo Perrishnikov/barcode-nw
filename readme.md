@@ -6,3 +6,9 @@ https://github.com/lindell/JsBarcode/wiki/Options#height
 
 homepage:
 https://github.com/Perrishnikov/barcode-nw
+
+Filesaver:
+https://github.com/eligrey/FileSaver.js
+
+JSZip:
+https://stuk.github.io/jszip/

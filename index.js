@@ -59,3 +59,89 @@ window.addEventListener('load', (e) => {
     messageDiv.append(`Error: ${error}`);
   }
 });
+
+async function getBlobForZip(url) {
+  return await fetch(url, {
+    method: 'get',
+    mode: 'no-cors',
+    referrerPolicy: 'no-referrer',
+  }).then((res) => {
+    return res.blob();
+  });
+}
+
+document.querySelector('#zipDownloadButton').onclick = async (e) => {
+  const bulkBarcodes = document.querySelectorAll('.generated');
+
+  const blobs = await Promise.all(
+    [...bulkBarcodes].map(async (element) => {
+      // console.log(element);
+
+      const dataURL = element.toDataURL();
+      // console.log(dataURL);
+      const upc = element.id.substring(4);
+      // console.log(`substring upc: `, upc);
+      const blob = await getBlobForZip(dataURL);
+      // console.log(`blob: `, blob);
+
+      return { blob: blob, upc: upc };
+    })
+  );
+
+  //Required JS Zip
+  const zip = JSZip();
+
+  for (const item of blobs) {
+    // console.log(item);
+    zip.file(`${item.upc}.png`, item.blob);
+  }
+
+  // Required Filesaver
+  zip.generateAsync({ type: 'blob' }).then((zipFile) => {
+    const fileName = `nw-barcodes.zip`;
+    return saveAs(zipFile, fileName);
+  });
+};
+
+const string = '020065100026; 033674001103; 033674003206; 666';
+const split = string.split(';');
+console.log(split);
+
+const resultsDiv = document.querySelector('#resultsDiv');
+
+for (let index in split) {
+  // try {
+  let upc = split[index].trim();
+  // console.log(upc);
+
+  // create Canvas AFTER Barcode is attempted
+  const newDiv = document.createElement('div');
+  newDiv.id = `div-${upc}`
+  const canvas = document.createElement('canvas');
+  canvas.id = `upc-${upc}`;
+  canvas.classList.add('generated');
+
+  newDiv.appendChild(canvas);
+  resultsDiv.appendChild(newDiv);
+
+  try {
+    let result = JsBarcode(`#upc-${upc}`, upc, {
+      format: 'UPC',
+      width: 3,
+      margin: 24,
+    });
+  } catch (error) {
+    // skip the bad UPC's, log them, and continue
+    console.log(split[index], ` is bad`);
+    document.querySelector(`#div-${upc}`).remove()
+    const messageDiv = document.querySelector(`#message`);
+    messageDiv.textContent = `Bad UPC: ${upc}`
+    messageDiv.classList.add('error');
+
+  }
+
+  // isOkay = true;
+  // } catch (error) {
+
+  // }
+}

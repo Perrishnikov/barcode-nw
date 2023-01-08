@@ -5,14 +5,14 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <meta http-equiv="X-UA-Compatible" content="ie=edge" />
     <title>NW Barcode Generator</title>
-    <link rel="shortcut icon" type="image/jpg" href="./nw_logo.ico" />
+    <link rel="shortcut icon" type="image/jpg" href="./images/nw_logo.ico" />
     <link rel="stylesheet" href="style.css" />
   </head>
   <body>
     <div class="flexDiv">
       <div class="t1">NW Barcode Generator</div>
       <div class="imageDiv">
-        <img id="titleImg" src="./nw_logo.avif" />
+        <img id="titleImg" src="./images/nw_logo.avif" />
       </div>
     </div>
     <hr />
@@ -39,26 +39,23 @@
 
     <!-- Bulk -->
     <div id="bulkDiv" class="flexColumn">
-      <div>
-        <label for="partcodes" class="t3">Name (4 to 8 characters):</label>
+      <div class="flexColumn">
+        <div class="t3 text">Enter UPC's delimited by comma, space, carriage return, or from Excel</div>
 
-        <input
-          type="text"
-          id="partcodes"
-          name="partcodes"
-          required
-          minlength="4"
-          maxlength="8"
-          size="10"
-        />
+        <textarea name="partcodeEntry" cols="64" rows="6"></textarea>
+        <button id="generateButton">Generate Barcodes</button>
+
+        <div>
+          <button disabled="true" id="zipDownloadButton">Download Zip</button>
+        </div>
       </div>
+      <div id="resultsDiv"></div>
     </div>
 
-    <!-- <div class="flexDiv">
-      
-    </div> -->
 
-    <script src="JsBarcode.all.min.js"></script>
+    <script src="./packages/JsBarcode.all.min.js"></script>
+    <script src="./packages/FileSaver.min.js"></script>
+    <script src="./packages/jszip.min.js"></script>
     <script src="index.js"></script>
   </body>
 </html>
