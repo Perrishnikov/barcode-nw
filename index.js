@@ -18,6 +18,25 @@ function downloadFile(url, fileName) {
     });
 }
 
+async function getBlobForZip(url) {
+  return await fetch(url, {
+    method: 'get',
+    mode: 'no-cors',
+    referrerPolicy: 'no-referrer',
+  }).then((res) => {
+    return res.blob();
+  });
+}
+
+function clearUrl() {
+  const url = new URL(location.href);
+  url.searchParams.delete('upc');
+  url.searchParams.delete('title');
+  // console.log(url);
+
+  window.location = url.toString();
+}
+
 window.addEventListener('load', (e) => {
   try {
     const parsedUrl = new URL(location.href);
@@ -75,17 +94,9 @@ window.addEventListener('load', (e) => {
   }
 });
 
-async function getBlobForZip(url) {
-  return await fetch(url, {
-    method: 'get',
-    mode: 'no-cors',
-    referrerPolicy: 'no-referrer',
-  }).then((res) => {
-    return res.blob();
-  });
-}
 
-/* DOWNLOAD button */
+
+/* DOWNLOAD ZIP button */
 document.querySelector('#zipDownloadButton').onclick = async (e) => {
   const bulkBarcodes = document.querySelectorAll('.generated');
 
@@ -165,7 +176,7 @@ document.querySelector('#generateButton').onclick = (e) => {
     }
   }
 
-  // enable Downlaod button
+  // enable Download button
   const downloadButton = document.querySelector('#zipDownloadButton');
   downloadButton.classList.add('go');
   downloadButton.disabled = false;
@@ -217,14 +228,13 @@ document.querySelector('#clearZipButton').onclick = () => {
 
   const resultsDiv = document.querySelector('#resultsDiv');
   resultsDiv.innerHTML = '';
+
+  clearUrl();
 };
 
 /* CLEAR Single Button */
 document.querySelector('#clearSingleButton').onclick = () => {
-  const url = new URL(location.href);
-  url.searchParams.delete('upc');
-  url.searchParams.delete('title');
-  // console.log(url);
-
-  window.location = url.toString();
+  clearUrl()
 };
+
+
