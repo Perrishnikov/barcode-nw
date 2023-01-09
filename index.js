@@ -140,7 +140,7 @@ document.querySelector('#generateButton').onclick = (e) => {
 
   for (const index in split) {
     const upc = split[index].trim();
-    console.log(upc);
+    // console.log(upc);
 
     const newDiv = document.createElement('div');
     newDiv.id = `div-${upc}`;
@@ -158,7 +158,7 @@ document.querySelector('#generateButton').onclick = (e) => {
         margin: 24,
       });
     } catch (error) {
-      console.log(error);
+      // console.log(error);
       // removed bad Canvas AFTER Barcode is attempted
       document.querySelector(`#div-${upc}`).remove();
       errorUPCs.push(upc);
