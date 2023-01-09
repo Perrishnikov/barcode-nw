@@ -140,7 +140,7 @@ document.querySelector('#generateButton').onclick = (e) => {
 
   for (const index in split) {
     const upc = split[index].trim();
-    // console.log(upc);
+    console.log(upc);
 
     const newDiv = document.createElement('div');
     newDiv.id = `div-${upc}`;
@@ -158,7 +158,7 @@ document.querySelector('#generateButton').onclick = (e) => {
         margin: 24,
       });
     } catch (error) {
-      // console.log(error);
+      console.log(error);
       // removed bad Canvas AFTER Barcode is attempted
       document.querySelector(`#div-${upc}`).remove();
       errorUPCs.push(upc);
@@ -177,6 +177,10 @@ document.querySelector('#generateButton').onclick = (e) => {
   // hide single stuff
   const singleDiv = document.querySelector('#singleDiv');
   singleDiv.classList.add('hidden');
+
+  // disable TextArea
+  const partcodeEntry = document.querySelector('#partcodeEntry');
+  partcodeEntry.disabled = true;
 
   // tally the errors, if any
   if (errorUPCs) {
@@ -203,6 +207,10 @@ document.querySelector('#clearZipButton').onclick = () => {
   // disable Generate Button
   const generateButton = document.querySelector('#generateButton');
   generateButton.disabled = false;
+
+  // disable TextArea
+  const partcodeEntry = document.querySelector('#partcodeEntry');
+  partcodeEntry.disabled = false;
 
   const messageDiv = document.querySelector(`#messageDiv`);
   messageDiv.innerHTML = '';
