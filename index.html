@@ -17,44 +17,41 @@
     </div>
     <hr />
     <!-- Message -->
-    <div id="messageDiv" class="errorDiv">
-      <!-- <div >Message</div> -->
-    </div>
+    <div id="messageDiv" class="errorDiv"></div>
+
     <!-- Single -->
-    <div
-      id="singleDiv"
-      class="flexColumn hidden"
-    >
+    <div id="singleDiv" class="flexColumn hidden">
       <div id="titleText" class="t2 spaceVertical">Product Title</div>
       <div>
         <canvas id="barcode"></canvas>
       </div>
 
-      <div class="spaceVertical">
-        <button id="singleDownloadButton" disabled="true">Download Single Barcode</button>
+      <div class="flexDiv">
+        <button id="singleDownloadButton" disabled="true">
+          Download Single Barcode
+        </button>
+        <button id="clearSingleButton">Clear</button>
       </div>
       <hr />
       <div>OR</div>
-      <hr/>
-
+      <hr />
     </div>
 
     <!-- Bulk -->
     <div id="bulkDiv" class="flexColumn">
       <div class="flexColumn">
         <div class="t3 spaceVertical">
-          Enter UPC's delimited by comma, space, return, or from Excel.
+          Enter UPC's delimited by comma or semicolon, or paste from Excel.
         </div>
 
         <textarea id="partcodeEntry" cols="64" rows="6"></textarea>
+
         <div class="flexDiv">
           <button id="generateButton">Generate Barcodes</button>
-          <button disabled="true" id="zipDownloadButton">Download Zip File</button>
-          <button id="clearButton">Clear</button>
-        </div>
-
-        <div>
-          
+          <button disabled="true" id="zipDownloadButton">
+            Download Zip File
+          </button>
+          <button id="clearZipButton">Clear</button>
         </div>
       </div>
       <div id="resultsDiv"></div>

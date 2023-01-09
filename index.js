@@ -50,13 +50,15 @@ window.addEventListener('load', (e) => {
         const canvas = document.querySelector('#barcode');
         const dataURL = canvas.toDataURL();
         // console.log(dataURL);
-        const singleDownloadButton = document.querySelector('#singleDownloadButton');
+        const singleDownloadButton = document.querySelector(
+          '#singleDownloadButton'
+        );
 
         singleDownloadButton.disabled = false;
         singleDownloadButton.onclick = (e) => {
           downloadFile(dataURL, upc);
         };
-        singleDownloadButton.classList.add('go')
+        singleDownloadButton.classList.add('go');
       } catch (error) {
         // console.log(error);
         const errorDiv = document.createElement('div');
@@ -172,6 +174,10 @@ document.querySelector('#generateButton').onclick = (e) => {
   const generateButton = document.querySelector('#generateButton');
   generateButton.disabled = true;
 
+  // hide single stuff
+  const singleDiv = document.querySelector('#singleDiv');
+  singleDiv.classList.add('hidden');
+
   // tally the errors, if any
   if (errorUPCs) {
     const messageDiv = document.querySelector(`#messageDiv`);
@@ -185,8 +191,8 @@ document.querySelector('#generateButton').onclick = (e) => {
   }
 };
 
-/* CLEAR button */
-document.querySelector('#clearButton').onclick = () => {
+/* CLEAR ZIP button */
+document.querySelector('#clearZipButton').onclick = () => {
   const text = document.querySelector('#partcodeEntry');
   text.value = '';
 
@@ -203,4 +209,14 @@ document.querySelector('#clearButton').onclick = () => {
 
   const resultsDiv = document.querySelector('#resultsDiv');
   resultsDiv.innerHTML = '';
+};
+
+/* CLEAR Single Button */
+document.querySelector('#clearSingleButton').onclick = () => {
+  const url = new URL(location.href);
+  url.searchParams.delete('upc');
+  url.searchParams.delete('title');
+  // console.log(url);
+
+  window.location = url.toString();
 };
